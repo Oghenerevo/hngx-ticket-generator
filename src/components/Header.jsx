@@ -1,11 +1,12 @@
 // import React from 'react'
 import logo from "../assets/logo.svg";
+import { ArrowRight } from "lucide-react";
 
 const Header = () => {
 		return (
 				<header>
 					<div>
-						<img src={logo} alt="logo" />
+						<img src={logo} alt="logo" className="logo" />
 					</div>
 
 					<div className="nav-links">
@@ -27,7 +28,7 @@ const Header = () => {
 					<div>
 						<button>
 							my tickets
-							{/* arrow icon */}
+							<ArrowRight className="btn-icon" />
 						</button>
 					</div>
 				</header>

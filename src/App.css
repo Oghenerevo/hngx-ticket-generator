@@ -13,6 +13,10 @@ header {
   align-items: center;
 }
 
+header .logo {
+  cursor: pointer;
+}
+
 .nav-links ul {
   display: flex;
   align-items: center;
@@ -25,6 +29,12 @@ li a {
   font-weight: 400;
 }
 
+li a:hover {
+  color: #197686;
+  text-decoration: underline;
+  transition: all .5s ease-in-out;
+}
+
 button {
   border-radius: 12px;
   border: 1px solid rgba(213, 234, 0, 0.10);
@@ -32,7 +42,44 @@ button {
   padding: 16px 24px;
   text-transform: uppercase;
   color: #0A0C11;
-  font-family: JejuMyeongjo;
+  /* font-family: JejuMyeongjo; */
   font-size: 16px;
   font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
+.btn-icon {
+  color: #0A0C11;
+}
+
+button:hover {
+  background: transparent;
+  border: 1px solid #197686;
+  color: #197686;
+}
+
+button:hover .btn-icon {
+  color: #197686;
+}
+
+/* Media Queries */
+@media screen and (max-width: 900px) {
+  header {
+    width: 90%;
+  }
+
+  .nav-links ul {
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+
+  .nav-links {
+    display: none;
+  }
 }

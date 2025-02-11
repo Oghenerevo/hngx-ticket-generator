@@ -66,6 +66,97 @@ button:hover .btn-icon {
   color: #197686;
 }
 
+/* TICKET */
+
+.container {
+  padding: 48px;
+  border-radius: 40px;
+  border: 1px solid #0E464F;
+  background: #041E23;
+  max-width: 700px;
+  height: 600px;
+  margin: 48px auto 0;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heading h2 {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.heading p {
+  color: #fafafa;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+}
+
+.inner-wrapper {
+  border-radius: 32px;
+  border: 1px solid #0E464F;
+  padding: 24px;
+  background: #08252B;
+  margin: 32px 0 0;
+}
+
+.top-details {
+  padding: 24px;
+  border-radius: 24px;
+  border-right: 2px solid #07373F;
+  border-bottom: 2px solid #07373F;
+  border-left: 2px solid #07373F;
+  background: radial-gradient(57.42% 106.59% at 14.02% 32.06%, rgba(36, 160, 181, 0.20) 0%, rgba(36, 160, 181, 0.00) 100%), rgba(10, 12, 17, 0.10);
+  backdrop-filter: blur(7px);
+}
+
+.top-details h1 {
+  text-align: center;
+  color: #FAFAFA;
+  font-family: "Road Rage", sans-serif;
+  font-size: 62px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.top-details p {
+  text-align: center;
+  color: #FAFAFA;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  width: 340px;
+  margin: 0 auto;
+}
+
+.line {
+  width: 100%;
+  margin: 32px 0;
+  height: 4px;
+  background: #07373F;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Media Queries */
 @media screen and (max-width: 900px) {
   header {

@@ -26,7 +26,7 @@ const Header = () => {
 					</div>
 
 					<div>
-						<button>
+						<button className="header-btn">
 							my tickets
 							<ArrowRight className="btn-icon" />
 						</button>

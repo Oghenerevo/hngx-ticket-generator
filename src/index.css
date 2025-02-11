@@ -8,8 +8,7 @@
 
 main {
   background: #02191D;
-  height: 100vh;
-  padding-top: 12px;
+  padding: 12px 0 30px;
 }
 
 li {

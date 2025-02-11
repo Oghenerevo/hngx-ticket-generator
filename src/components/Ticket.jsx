@@ -23,7 +23,7 @@ const Ticket = () => {
 						<div className="line"></div>
 
 						<div>
-							<p>Select 
+							<p>Select Ticket Type: </p>
 						</div>
 					</div>
 				</section>

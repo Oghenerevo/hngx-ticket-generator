@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Road+Rage&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://db.onlinewebfonts.com/c/1a5c2d8bbd4e28d99a6efcbb9a5b378f?family=JejuMyeongjo');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "JejuMyeongjo", sans-serif;
 }
 
 main {
   background: #02191D;
   padding: 12px 0 30px;
+  height: 100%;
 }
 
 li {

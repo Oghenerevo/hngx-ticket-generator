@@ -1,6 +1,8 @@
 import { Mail } from 'lucide-react';
 import { useState } from 'react'
 import imgUpload from "../assets/upload.svg";
+import ticketBg from "../assets/ticket.svg";
+import barCode from "../assets/barcode.svg";
 
 const Ticket = () => {
 	const [selectedNumber, setSelectedNumber] = useState("");
@@ -29,7 +31,7 @@ const Ticket = () => {
 					<>
 						<div className="heading">
 							<h2>Ticket Selection</h2>
-							<p>{step}/3</p>
+							<p>Step {step}/3</p>
 						</div>
 						<div className="progress-container">
 								<div
@@ -107,7 +109,7 @@ const Ticket = () => {
 					<>
 						<div className="heading">
 							<h2>Attendee Details</h2>
-							<p>{step}/3</p>
+							<p>Step {step}/3</p>
 						</div>
 			
 						<div className="progress-container">
@@ -146,7 +148,7 @@ const Ticket = () => {
 							</div>
 
 							<div className="input-container">
-								<label htmlFor="About">About the project</label>
+								<label htmlFor="About">Special Request?</label>
 								<textarea name="About" placeholder="Textarea"></textarea>
 							</div>
 					
@@ -163,7 +165,7 @@ const Ticket = () => {
 					<>
 						<div className="heading">
 							<h2>Ready</h2>
-							<p>{step}/3</p>
+							<p>Step {step}/3</p>
 						</div>
 			
 						<div className="progress-container">
@@ -180,7 +182,11 @@ const Ticket = () => {
 							</div>
 
 							<div className="ticket-container">
-								<img src="" alt="" />
+								<img src={ticketBg} alt="ticket-bg" className="ticket-bg" />
+								<div className="ticket-info">
+									<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat at facere dolor, quidem dolorem eius quod consequatur harum nisi. Dolore amet fuga quia officiis! Aliquid officiis dolores rem sed pariatur laboriosam odio, voluptates dolore eum natus et ratione rerum? Tempora eveniet quae maxime? Ratione tempora natus saepe molestiae est, eveniet distinctio sunt exercitationem tenetur tempore molestias! Est blanditiis quo quis aspernatur, itaque deleniti deserunt debitis ipsa veritatis voluptates repudiandae ut placeat cupiditate obcaecati ea, eaque maiores quibusdam magni doloremque? Aperiam illum animi quae, quasi, perspiciatis explicabo quas enim dicta excepturi autem fugit? Molestiae ut voluptas hic iste ex eos facere.</p>
+								</div>
+								<img src={barCode} alt="bar-code" className='ticket-barcode'/>
 							</div>
 
 							<div className="btns">

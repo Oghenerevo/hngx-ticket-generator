@@ -451,22 +451,32 @@ input::placeholder, textarea::placeholder {
   line-height: 150%;
 }
 
-.event-ticket {
-  width: 562px;
-  height: 200px;
-  background: #0A0C11;
-  border-radius: 17px;
-  margin: 64px auto 56px;
+.ticket-container {
+  width: 300px;
+  margin: 64px auto 32px;
+  position: relative;
 }
 
-.final .btn {
-  width: 230px;
+.ticket-bg {
+  width: 100%;
 }
 
-.final div {
-  gap: 24PX;
+.ticket-info {
+  border-radius: 16px;
+  border: 1px solid #24A0B5;
+  background: rgba(3, 30, 33, 0.10);
+  backdrop-filter: blur(2px);
+  margin: 20px;
+  padding: 14px;
+  position: absolute;
+  top: 0;
 }
 
+.ticket-barcode {
+  position: absolute;
+  bottom: 25px;
+  left: 33px;
+}
 
 /* Media Queries */
 @media screen and (max-width: 900px) {

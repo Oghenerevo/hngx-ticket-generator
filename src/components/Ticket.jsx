@@ -234,12 +234,12 @@ const Ticket = () => {
 							<div className="ticket-container">
 								<img src={ticketBg} alt="ticket-bg" className="ticket-bg" />
 								<div className="ticket-info">
-									<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat at facere dolor, quidem dolorem eius quod consequatur harum nisi. Dolore amet fuga quia officiis! Aliquid officiis dolores rem sed pariatur laboriosam odio, voluptates dolore eum natus et ratione rerum? Tempora eveniet quae maxime? Ratione tempora natus saepe molestiae est, eveniet distinctio sunt exercitationem tenetur tempore molestias! Est blanditiis quo quis aspernatur, itaque deleniti deserunt debitis ipsa veritatis voluptates repudiandae ut placeat cupiditate obcaecati ea, eaque maiores quibusdam magni doloremque? Aperiam illum animi quae, quasi, perspiciatis explicabo quas enim dicta excepturi autem fugit? Molestiae ut voluptas hic iste ex eos facere.</p>
+									<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat at facere dolor, quidem dolorem eius quod consequatur harum nisi. Dolore amet fuga quia officiis! Aliquid officiis dolores rem sed pariatur laboriosam odio, voluptates dolore eum natus et ratione rerum? Tempora eveniet quae maxime? Ratione tempora natus saepe molestiae est, eveniet distinctio sunt exercitationem tenetur tempore molestias! Est blanditiis quo quis aspernatur, itaque deleniti deserunt debitis ipsa veritatis voluptates repudiandae ut placeat cupiditate obcaecati ea, eaque maiores quibusdam magni doloremque? Aperia exeos facere.</p>
 								</div>
 								<img src={barCode} alt="bar-code" className='ticket-barcode'/>
 							</div>
 
-							<div className="btns">
+							<div className="btns step-3">
 								<button className="btn cancel" onClick={handleNewTicket}>Book Another Ticket</button>
 
 								<button className="btn next">Download Ticket</button>

@@ -563,6 +563,17 @@ input::placeholder, textarea::placeholder {
   }
 }
 
+@media screen and (max-width: 520px) {
+  .step-3 {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+    .btns .btn {
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .btns {
     flex-direction: column;
@@ -581,6 +592,15 @@ input::placeholder, textarea::placeholder {
   .image-holder {
     height: 256px;
     width: 100%;
+  }
+
+  .ticket-container {
+    width: 98%;
+  }
+
+  .ticket-barcode {
+    width: 150px;
+    left: 65px;
   }
 } 
 

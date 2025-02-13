@@ -1,20 +1,76 @@
 import { Mail } from 'lucide-react';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import imgUpload from "../assets/upload.svg";
 import ticketBg from "../assets/ticket.svg";
 import barCode from "../assets/barcode.svg";
 
 const Ticket = () => {
-	const [selectedNumber, setSelectedNumber] = useState("");
 	const [step, setStep] = useState(1);
 	const [image, setImage] = useState(null);
+
+	const [errors, setErrors] = useState({
+		ticket: "", 
+		number: "",
+		image: "",
+		name: "",
+		email: "",
+	});
+
+	const [formData, setFormData] = useState(() => {
+		return JSON.parse(localStorage.getItem("attendeeForm")) || {
+				selectedTicket: "",
+				selectedNumber: "",
+				name: "",
+				email: "",
+				request: "",
+		};
+	});
+
+	useEffect(() => {
+		localStorage.setItem("attendeeForm", JSON.stringify(formData));
+	}, [formData]);
 
 	const handleImageUpload = (event) => {
 			const file = event.target.files[0];
 			if (file) {
 					const imageUrl = URL.createObjectURL(file);
 					setImage(imageUrl);
+					setErrors((prev) => ({ ...prev, image: "" }));
 			}
+	};
+
+	const handleTicketClick = (ticketType) => {
+		setFormData((prev) => ({ ...prev, selectedTicket: ticketType }));
+		setErrors((prev) => ({ ...prev, ticket: "" }));
+	};
+
+	const handleNumberChange = (e) => {
+			setFormData((prev) => ({ ...prev, selectedNumber: e.target.value }));
+			setErrors((prev) => ({ ...prev, number: "" }));
+	};
+
+	const handleNameChange = (e) => {
+			setFormData((prev) => ({ ...prev, name: e.target.value }));
+			setErrors((prev) => ({ ...prev, name: "" }));
+	};
+
+	const handleRequestChange = (e) => {
+			setFormData((prev) => ({ ...prev, request: e.target.value }));
+	};
+
+	const handleEmailChange = (e) => {
+		const value = e.target.value.trim();
+		setFormData((prev) => ({ ...prev, email: value }));
+
+		setErrors((prev) => ({
+				...prev,
+				email:
+						value === ""
+								? "Email is required."
+								: !/^\S+@\S+\.\S+$/.test(value)
+								? "Please enter a valid email address."
+								: "",
+		}));
 	};
 
 	const handleDragOver = (event) => {
@@ -27,31 +83,72 @@ const Ticket = () => {
 			if (file) {
 					const imageUrl = URL.createObjectURL(file);
 					setImage(imageUrl);
+					setErrors((prev) => ({ ...prev, image: "" }));
 			}
 	};
 
 	const handleNext = () => {
-			if (step < 3) {
-					setStep(step + 1);
-			}
+		let newErrors = { ticket: "", number: "" };
+
+		if (!formData.selectedTicket)
+				newErrors.ticket = "Please select a ticket type.";
+		if (!formData.selectedNumber)
+				newErrors.number = "Please select the number of tickets.";
+
+		if (newErrors.ticket || newErrors.number) {
+				setErrors(newErrors);
+				return;
+		}
+
+		setStep(step + 1);
+	};
+
+ const handleNextStep2 = () => {
+		let newErrors = { image: "", name: "", email: "" };
+
+		if (!image) newErrors.image = "Please upload a profile photo.";
+		if (!formData.name.trim()) newErrors.name = "Name is required.";
+		if (!formData.email.trim()) {
+				newErrors.email = "Email is required.";
+		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+				newErrors.email = "Please enter a valid email address.";
+		}
+
+		if (newErrors.image || newErrors.name || newErrors.email) {
+				setErrors(newErrors);
+				return;
+		}
+
+		console.log("Local Storage Data:", localStorage);
+
+		setStep(step + 1);
 	};
 
 	const handleBack = () => {
-			if (step > 1) {
-					setStep(step - 1);
-			}
+		if (step > 1) {
+				setStep(step - 1);
+		}
 	};
 
 	const handleNewTicket = () => {
-		setStep(1);
-	}
+			setStep(1);
+			localStorage.removeItem("attendeeForm");
+			setFormData({
+					selectedTicket: "",
+					selectedNumber: "",
+					name: "",
+					email: "",
+					request: "",
+			});
+			setImage(null);
+	};
 
 	const imageStyle = image ? { 
-		width: "100%", 
-		height: "100%", 
-		objectFit: "cover", 
-		borderRadius: "inherit" 
-} : {};
+			width: "100%", 
+			height: "100%", 
+			objectFit: "cover", 
+			borderRadius: "inherit" 
+	} : {};
 
 	return (
 			<section className="container">
@@ -87,33 +184,35 @@ const Ticket = () => {
 
 							<div className="ticket-section">
 								<p>Select Ticket Type: </p>
-									<div className="ticket-types">
-										<div className="ticket">
-											<h2>Free</h2>
-											<h4>Regular access</h4>
-											<p>20/52</p>
+								<div className="ticket-types">
+									{[
+										{ type: 'Free', description: 'Regular access', available: '20/52' },
+										{ type: '$50', description: 'VIP access', available: '20/52' },
+										{ type: '$150', description: 'VVIP access', available: '20/52' }
+									].map((ticket, index) => (
+										<div 
+											key={index} 
+											onClick={() => handleTicketClick(ticket.type)}
+											className={`ticket ${
+												formData.selectedTicket === ticket.type ? "selected" : ""
+											}`}
+											style={formData.selectedTicket === ticket.type ? { border: "1px solid #197686", background: "#12464E" } : {}}
+										>
+											<h2>{ticket.type}</h2>
+											<h4>{ticket.description}</h4>
+											<p>{ticket.available}</p>
 										</div>
-
-										<div className="ticket">
-											<h2>$50</h2>
-											<h4>vip access</h4>
-											<p>20/52</p>
-										</div>
-
-										<div className="ticket">
-											<h2>$150</h2>
-											<h4>vvip access</h4>
-											<p>20/52</p>
-										</div>
+									))}
 									</div>
+									{errors.ticket && <p style={{ color: "red" }} className="error-text">{errors.ticket}</p>}
 							</div>
 
 							<div className="ticket-section">
 								<p>Number of Ticket: </p>
 								<select
 										id="numberDropdown"
-										value={selectedNumber}
-										onChange={(e) => setSelectedNumber(e.target.value)}
+										value={formData.selectedNumber}
+										onChange={handleNumberChange}
 										className='drop-down'
 								>
 										<option value="" disabled>Number of ticket(s)</option>
@@ -123,6 +222,7 @@ const Ticket = () => {
 												</option>
 										))}
 								</select>
+								{errors.number && <p style={{ color: "red" }} className="error-text">{errors.number}</p>}
 							</div>
 
 							<div className="btns">
@@ -181,31 +281,44 @@ const Ticket = () => {
 										</div>
 								</div>
     			</div>
+							{errors.image && <p style={{ color: "red" }} className="error-text">{errors.image}</p>}
 					
 							<div className="line"></div>
 
 							<div className="input-container">
 								<label htmlFor="Name">Enter your name</label>
-								<input type="text" />
+								<input type="text" value={formData.name} onChange={handleNameChange} />
+								{errors.name && <p style={{ color: "red" }} className="error-text">{errors.name}</p>}
 							</div>
 							
 							<div className="input-container">
 								<label htmlFor="Email">Enter your email*</label>
 								<div className='input-box'>
 									<Mail className='mail-icon'/>
-									<input type="email" placeholder="hello@avioflagos.io" />
+									<input 
+										type="email" 
+										placeholder="hello@avioflagos.io" 
+										value={formData.email} 
+										onChange={handleEmailChange} 
+									/>
 								</div>
+    				{errors.email && <p style={{ color: "red" }} className="error-text">{errors.email}</p>}
 							</div>
 
 							<div className="input-container">
 								<label htmlFor="About">Special Request?</label>
-								<textarea name="About" placeholder="Textarea"></textarea>
+								<textarea 
+									name="About" 
+									placeholder="Textarea"
+									value={formData.request}
+									onChange={handleRequestChange}
+								></textarea>
 							</div>
 					
 							<div className="btns">
 								<button className="btn cancel" onClick={handleBack} disabled={step === 1}>Back</button>
 
-								<button className="btn next" onClick={handleNext} disabled={step === 3}>Get My Ticket</button>
+								<button className="btn next" onClick={handleNextStep2} disabled={step === 3}>Get My Ticket</button>
 							</div>
 						</div>
 					</>
@@ -234,7 +347,12 @@ const Ticket = () => {
 							<div className="ticket-container">
 								<img src={ticketBg} alt="ticket-bg" className="ticket-bg" />
 								<div className="ticket-info">
-									<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat at facere dolor, quidem dolorem eius quod consequatur harum nisi. Dolore amet fuga quia officiis! Aliquid officiis dolores rem sed pariatur laboriosam odio, voluptates dolore eum natus et ratione rerum? Tempora eveniet quae maxime? Ratione tempora natus saepe molestiae est, eveniet distinctio sunt exercitationem tenetur tempore molestias! Est blanditiis quo quis aspernatur, itaque deleniti deserunt debitis ipsa veritatis voluptates repudiandae ut placeat cupiditate obcaecati ea, eaque maiores quibusdam magni doloremque? Aperia exeos facere.</p>
+									<p><strong>Ticket Type:</strong> {formData.selectedTicket}</p>
+									<p><strong>Number of Tickets:</strong> {formData.selectedNumber}</p>
+									<p><strong>Name:</strong> {formData.name}</p>
+									<p><strong>Email:</strong> {formData.email}</p>
+									<p><strong>Special Request:</strong> {formData.request}</p>
+									{/* {imageUrl && <img src={imageUrl} alt="Uploaded" className="uploaded-image" />} */}
 								</div>
 								<img src={barCode} alt="bar-code" className='ticket-barcode'/>
 							</div>

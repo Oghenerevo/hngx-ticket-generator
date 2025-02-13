@@ -7,6 +7,28 @@ import barCode from "../assets/barcode.svg";
 const Ticket = () => {
 	const [selectedNumber, setSelectedNumber] = useState("");
 	const [step, setStep] = useState(1);
+	const [image, setImage] = useState(null);
+
+	const handleImageUpload = (event) => {
+			const file = event.target.files[0];
+			if (file) {
+					const imageUrl = URL.createObjectURL(file);
+					setImage(imageUrl);
+			}
+	};
+
+	const handleDragOver = (event) => {
+			event.preventDefault();
+	};
+
+	const handleDrop = (event) => {
+			event.preventDefault();
+			const file = event.dataTransfer.files[0];
+			if (file) {
+					const imageUrl = URL.createObjectURL(file);
+					setImage(imageUrl);
+			}
+	};
 
 	const handleNext = () => {
 			if (step < 3) {
@@ -23,6 +45,13 @@ const Ticket = () => {
 	const handleNewTicket = () => {
 		setStep(1);
 	}
+
+	const imageStyle = image ? { 
+		width: "100%", 
+		height: "100%", 
+		objectFit: "cover", 
+		borderRadius: "inherit" 
+} : {};
 
 	return (
 			<section className="container">
@@ -122,15 +151,36 @@ const Ticket = () => {
 						<div className="inner-wrapper">
 							<div className="image-container">
 								<p>Upload profile photo</p>
-								<div className="darker">
-									<div className="image-holder">
-										<div className="content">
-											<img src={imgUpload} alt="img-upload icon" className="upload-icon"/>
-											<p>Drag & drop or click to upload</p>
+								<div className="darker" onDragOver={handleDragOver} onDrop={handleDrop}>
+										<div 
+											className="image-holder"
+											onClick={() => document.getElementById('file-upload').click()} 
+											style={{ position: 'relative', cursor: 'pointer' }}
+										>
+												{image ? (
+														<img src={image} alt="Uploaded" className="uploaded-image" style={imageStyle} />
+												) : (
+														<div className="content">
+																<label htmlFor="file-upload" className="upload-label">
+																		<img 
+																			src={imgUpload} 
+																			alt="Upload icon" 
+																			className="upload-icon" 
+																		/>
+																		<p>Drag & drop or click to upload</p>
+																</label>
+																<input
+																		id="file-upload"
+																		type="file"
+																		accept="image/*"
+																		onChange={handleImageUpload}
+																		style={{ display: "none" }}
+																/>
+														</div>
+												)}
 										</div>
-									</div>
 								</div>
-							</div>
+    			</div>
 					
 							<div className="line"></div>
 

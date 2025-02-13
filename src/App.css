@@ -179,7 +179,6 @@ button:hover .btn-icon {
 
 .ticket-section {
   padding: 16px 0;
-  /* border: solid red; */
 }
 
 .ticket-section p {
@@ -196,7 +195,7 @@ button:hover .btn-icon {
   border-radius: 12px;
   border: 2px solid #197686;
   cursor: pointer;
-  transition: all .5s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 .ticket-types {
@@ -563,3 +562,5 @@ input::placeholder, textarea::placeholder {
     width: 100%;
   }
 } 
+
+

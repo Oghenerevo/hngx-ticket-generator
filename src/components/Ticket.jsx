@@ -179,15 +179,15 @@ const Ticket = () => {
 								<p>You can download or Check your email for a copy</p>
 							</div>
 
-							<div className="event-ticket">
-
+							<div className="ticket-container">
+								<img src="" alt="" />
 							</div>
-					
-								<div className="btns">
-									<button className="btn cancel" onClick={handleNewTicket}>Book Another Ticket</button>
 
-									<button className="btn next">Download Ticket</button>
-								</div>
+							<div className="btns">
+								<button className="btn cancel" onClick={handleNewTicket}>Book Another Ticket</button>
+
+								<button className="btn next">Download Ticket</button>
+							</div>
 						</div>
 					</>
 				)}

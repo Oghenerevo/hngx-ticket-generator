@@ -208,7 +208,7 @@ const Ticket = () => {
 							<div className="line"></div>
 
 							<div className="ticket-section">
-								<p>Select Ticket Type: </p>
+								<p className='label'>Select Ticket Type: </p>
 								<div className="ticket-types">
 									{[
 										{ type: 'Free', description: 'Regular access', available: '20/52', status: 'Regular' },
@@ -233,7 +233,7 @@ const Ticket = () => {
 							</div>
 
 							<div className="ticket-section">
-								<p>Number of Ticket: </p>
+								<p className="label">Number of Ticket: </p>
 								<select
 										id="numberDropdown"
 										value={formData.selectedNumber}

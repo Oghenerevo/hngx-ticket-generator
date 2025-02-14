@@ -180,14 +180,14 @@ button:hover .btn-icon {
   padding: 16px 0;
 }
 
-.ticket-section p {
+.ticket-section .label, .ticket-item p {
   color: #FAFAFA;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-  border: red solid;
+  /* border: red solid; */
 }
 
 .ticket-item {

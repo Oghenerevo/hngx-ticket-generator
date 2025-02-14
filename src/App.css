@@ -597,16 +597,15 @@ textarea {
     padding: 20px;
     width: 90%;
   }
+
+  .ticket-types {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
 }
 
 @media screen and (max-width: 700px) {
-
   .nav-links {
     display: none;
-  }
-
-  .ticket-types {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
 

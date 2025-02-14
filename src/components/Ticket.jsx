@@ -5,7 +5,9 @@ import ticketBg from "../assets/ticket.svg";
 import barCode from "../assets/barcode.svg";
 
 const Ticket = () => {
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(() => {
+  return Number(localStorage.getItem("currentStep")) || 1;
+	});
 	const [image, setImage] = useState(null);
 	const [imageFile, setImageFile] = useState(null);
 	const [isUploading, setIsUploading] = useState(false);
@@ -88,8 +90,16 @@ const Ticket = () => {
 				return;
 		}
 
-		setStep(step + 1);
+		const nextStep = step + 1;
+		setStep(nextStep);
+		localStorage.setItem("currentStep", nextStep.toString());
 	};
+
+// const handlePrevStep = () => {
+//   const prevStep = step - 1;
+//   setStep(prevStep);
+//   localStorage.setItem("currentStep", prevStep.toString());
+// };
 
 	const handleNextStep2 = async () => {
 		let newErrors = { image: "", name: "", email: "" };
@@ -103,8 +113,8 @@ const Ticket = () => {
 		}
 
 		if (newErrors.image || newErrors.name || newErrors.email) {
-						setErrors(newErrors);
-						return;
+			setErrors(newErrors);
+			return;
 		}
 
 		try {
@@ -128,7 +138,9 @@ const Ticket = () => {
 
 			console.log("Local Storage Data:", localStorage);
 
-			setStep(step + 1);
+			const nextStep = step + 1;
+			setStep(nextStep);
+			localStorage.setItem("currentStep", nextStep.toString());
 		} catch (error) {
 					console.error("Error uploading image to Cloudinary:", error);
 					setErrors((prev) => ({ ...prev, image: "Failed to upload image. Please try again." }));
@@ -139,7 +151,9 @@ const Ticket = () => {
 
 	const handleBack = () => {
 		if (step > 1) {
-				setStep(step - 1);
+				const prevStep = step - 1;
+				setStep(prevStep);
+				localStorage.setItem("currentStep", prevStep.toString());
 		}
 	};
 

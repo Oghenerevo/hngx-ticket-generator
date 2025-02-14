@@ -1,0 +1,43 @@
+Now how do I fetch the image with the formData.avatar here
+
+									<div className="ticket-img">
+										<img src="" alt="" />
+									</div>
+
+									<div className="ticket-data">
+										<div className="top-data">
+											<div className="row-data">
+												<div className="data item-1">
+													<p>Enter your name</p>
+													<h4>{formData.name}</h4>
+												</div>
+												<div className="data item-2">
+													<p>Enter your email*</p>
+													<h4>{formData.email}</h4>
+												</div>
+											</div>
+											<div className="row-data">
+												<div className="data item-1">
+													<p>Ticket Type:</p>
+													<h4>{formData.selectedTicket}</h4>
+												</div>
+												<div className="data item-2">
+													<p>Ticket For:</p>
+													<h4>{formData.selectedNumber}</h4>
+												</div>
+											</div>
+										</div>
+										<div className="bottom-data">
+											<p>Specail request?</p>
+											<h4>
+												{formData.request 
+													? formData.request.length > 50
+															? `${formData.request.slice(0, 50)} ...` 
+															: formData.request 
+													: 'No special request'}
+											</h4>
+										</div>
+									</div>
+
+cloudinary details
+- cloud name: 

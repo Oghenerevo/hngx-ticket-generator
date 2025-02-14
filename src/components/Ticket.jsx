@@ -7,7 +7,8 @@ import barCode from "../assets/barcode.svg";
 const Ticket = () => {
 	const [step, setStep] = useState(1);
 	const [image, setImage] = useState(null);
-
+	const [imageFile, setImageFile] = useState(null);
+	const [isUploading, setIsUploading] = useState(false);
 	const [errors, setErrors] = useState({
 		ticket: "", 
 		number: "",
@@ -30,13 +31,14 @@ const Ticket = () => {
 		localStorage.setItem("attendeeForm", JSON.stringify(formData));
 	}, [formData]);
 
-	const handleImageUpload = (event) => {
+	const handleImageUpload = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
 
   const imageUrl = URL.createObjectURL(file);
   setImage(imageUrl);
   setErrors((prev) => ({ ...prev, image: "" }));
+		setImageFile(file);
 	};
 
 	const handleTicketClick = (ticketStatus) => {
@@ -89,25 +91,50 @@ const Ticket = () => {
 		setStep(step + 1);
 	};
 
- const handleNextStep2 = () => {
+	const handleNextStep2 = async () => {
 		let newErrors = { image: "", name: "", email: "" };
 
 		if (!image) newErrors.image = "Please upload a profile photo.";
 		if (!formData.name.trim()) newErrors.name = "Name is required.";
 		if (!formData.email.trim()) {
-				newErrors.email = "Email is required.";
+						newErrors.email = "Email is required.";
 		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-				newErrors.email = "Please enter a valid email address.";
+						newErrors.email = "Please enter a valid email address.";
 		}
 
 		if (newErrors.image || newErrors.name || newErrors.email) {
-				setErrors(newErrors);
-				return;
+						setErrors(newErrors);
+						return;
 		}
 
-		console.log("Local Storage Data:", localStorage);
+		try {
+			setIsUploading(true);
 
-		setStep(step + 1);
+			const formDataUpload = new FormData();
+			formDataUpload.append("file", imageFile);
+			formDataUpload.append("upload_preset", "event-ticket");
+
+			const response = await fetch("https://api.cloudinary.com/v1_1/dgfvtw11p/image/upload", {
+				method: "POST",
+				body: formDataUpload
+			});
+
+			const data = await response.json();
+			if (!data.secure_url) {
+				throw new Error("Failed to upload image to Cloudinary.");
+			}
+
+			setFormData((prev) => ({ ...prev, avatar: data.secure_url }));
+
+			console.log("Local Storage Data:", localStorage);
+
+			setStep(step + 1);
+		} catch (error) {
+					console.error("Error uploading image to Cloudinary:", error);
+					setErrors((prev) => ({ ...prev, image: "Failed to upload image. Please try again." }));
+		} finally {
+					setIsUploading(false);
+		}
 	};
 
 	const handleBack = () => {
@@ -228,10 +255,10 @@ const Ticket = () => {
 						</div>
 			
 						<div className="progress-container">
-								<div
-										className="progress-bar"
-										style={{ width: `${(step / 3) * 100}%`, backgroundColor: "#24A0B5" }}
-								></div>
+							<div
+									className="progress-bar"
+									style={{ width: `${(step / 3) * 100}%`, backgroundColor: "#24A0B5" }}
+							></div>
 						</div>
 
 						<div className="inner-wrapper">
@@ -251,7 +278,7 @@ const Ticket = () => {
 										<input id="file-upload" type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} />
 								</div>
     			</div>
-							{errors.image && <p style={{ color: "red" }} className="error-text">{errors.image}</p>}
+							{errors.image && <p style={{ color: "red" }} className="error-text img-error">{errors.image}</p>}
 					
 							<div className="line"></div>
 
@@ -288,7 +315,13 @@ const Ticket = () => {
 							<div className="btns">
 								<button className="btn cancel" onClick={handleBack} disabled={step === 1}>Back</button>
 
-								<button className="btn next" onClick={handleNextStep2} disabled={step === 3}>Get My Ticket</button>
+								<button 
+									onClick={handleNextStep2} 
+									disabled={isUploading} 
+									className="btn next"
+								>
+									{isUploading ? "Uploading..." : "Get My Ticket"}
+								</button>
 							</div>
 						</div>
 					</>
@@ -316,9 +349,6 @@ const Ticket = () => {
 
 							<div className="ticket-container">
 								<img src={ticketBg} alt="ticket-bg" className="ticket-bg" />
-								{/* <div className="ticket-info">
-									<p><strong>Special Request:</strong> {formData.request ? formData.request : 'Nil'}</p>
-								</div> */}
 								<div className="ticket-info">
 									<div className="ticket-heading">
 										<h1>Techember Fest ”25</h1>
@@ -327,7 +357,7 @@ const Ticket = () => {
 									</div>
 
 									<div className="ticket-img">
-										<img src="" alt="" />
+										<img src={formData.avatar} alt="UploadedImg" />
 									</div>
 
 									<div className="ticket-data">

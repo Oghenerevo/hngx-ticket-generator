@@ -12,7 +12,7 @@
 main {
   background: #02191D;
   padding: 12px 0 30px;
-  height: 100%;
+  min-height: 100vh;
 }
 
 li {

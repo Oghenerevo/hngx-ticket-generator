@@ -187,9 +187,10 @@ button:hover .btn-icon {
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  border: red solid;
 }
 
-.ticket {
+.ticket-item {
   padding: 12px;
   border-radius: 12px;
   border: 2px solid #197686;
@@ -213,7 +214,7 @@ button:hover .btn-icon {
   background: #12464E;
 }
 
-.ticket h2 {
+.ticket-item h2 {
   color: #FFF;
   font-family: "Roboto", sans-serif;
   font-size: 24px;
@@ -223,7 +224,7 @@ button:hover .btn-icon {
   margin-bottom: 12px;
 }
 
-.ticket h4 {
+.ticket-item h4 {
   color: #FAFAFA;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
@@ -231,15 +232,6 @@ button:hover .btn-icon {
   font-weight: 400;
   line-height: 150%;
   text-transform: uppercase;
-}
-
-.ticket p {
-  color: #D9D9D9;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; 
 }
 
 .drop-down {

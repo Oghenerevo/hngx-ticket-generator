@@ -218,7 +218,7 @@ const Ticket = () => {
 										<div 
 											key={index} 
 											onClick={() => handleTicketClick(ticket.status)}
-											className={`ticket ${
+											className={`ticket-item ${
 												formData.selectedTicket === ticket.status ? "selected" : ""
 											}`}
 											style={formData.selectedTicket === ticket.status ? { border: "1px solid #197686", background: "#12464E" } : {}}

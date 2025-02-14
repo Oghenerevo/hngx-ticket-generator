@@ -21,11 +21,11 @@ const Ticket = () => {
 
 	const [formData, setFormData] = useState(() => {
 		return JSON.parse(localStorage.getItem("attendeeForm")) || {
-				selectedTicket: "",
-				selectedNumber: "",
-				name: "",
-				email: "",
-				request: "",
+			selectedTicket: "",
+			selectedNumber: "",
+			name: "",
+			email: "",
+			request: "",
 		};
 	});
 
@@ -41,6 +41,7 @@ const Ticket = () => {
   setImage(imageUrl);
   setErrors((prev) => ({ ...prev, image: "" }));
 		setImageFile(file);
+		// localStorage.setItem("uploadedImage", imageUrl);
 	};
 
 	const handleTicketClick = (ticketStatus) => {
@@ -95,12 +96,6 @@ const Ticket = () => {
 		localStorage.setItem("currentStep", nextStep.toString());
 	};
 
-// const handlePrevStep = () => {
-//   const prevStep = step - 1;
-//   setStep(prevStep);
-//   localStorage.setItem("currentStep", prevStep.toString());
-// };
-
 	const handleNextStep2 = async () => {
 		let newErrors = { image: "", name: "", email: "" };
 
@@ -132,6 +127,9 @@ const Ticket = () => {
 			const data = await response.json();
 			if (!data.secure_url) {
 				throw new Error("Failed to upload image to Cloudinary.");
+			}else {
+				setImage(data.secure_url);
+				localStorage.setItem("uploadedImage", data.secure_url);
 			}
 
 			setFormData((prev) => ({ ...prev, avatar: data.secure_url }));
@@ -253,7 +251,7 @@ const Ticket = () => {
 							</div>
 
 							<div className="btns">
-								<button className="btn cancel" onClick={handleBack} disabled={step === 1}>Cancel</button>
+								<button className="btn cancel" onClick={handleNewTicket}>Cancel</button>
 
 								<button className="btn next" onClick={handleNext} disabled={step === 3}>Next</button>
 							</div>
@@ -326,7 +324,7 @@ const Ticket = () => {
 								></textarea>
 							</div>
 					
-							<div className="btns">
+							<div className="btns step-3">
 								<button className="btn cancel" onClick={handleBack} disabled={step === 1}>Back</button>
 
 								<button 
@@ -334,7 +332,7 @@ const Ticket = () => {
 									disabled={isUploading} 
 									className="btn next"
 								>
-									{isUploading ? "Uploading..." : "Get My Ticket"}
+									{isUploading ? "Uploading..." : "Get My Free Ticket"}
 								</button>
 							</div>
 						</div>

@@ -355,7 +355,13 @@ const Ticket = () => {
 										</div>
 										<div className="bottom-data">
 											<p>Specail request?</p>
-											<h4>{formData.request ? formData.request : 'No special request'}</h4>
+											<h4>
+												{formData.request 
+													? formData.request.length > 50
+															? `${formData.request.slice(0, 50)} ...` 
+															: formData.request 
+													: 'No special request'}
+											</h4>
 										</div>
 									</div>
 								</div>

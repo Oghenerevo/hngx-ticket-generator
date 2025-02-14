@@ -284,7 +284,7 @@ button:hover .btn-icon {
 }
 
 .image-holder {
-  padding: 24px;
+  /* padding: 24px; */
   height: 240px;
   width: 240px;
   border-radius: 32px;
@@ -302,6 +302,7 @@ button:hover .btn-icon {
 .content {
   text-align: center;
   color: #FAFAFA;
+  padding: 24px;
 }
 
 .content p {
@@ -471,6 +472,7 @@ input::placeholder, textarea::placeholder {
   padding: 14px;
   position: absolute;
   top: 0;
+  width: 87%;
 }
 
 .ticket-barcode {
@@ -486,6 +488,97 @@ input::placeholder, textarea::placeholder {
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+}
+
+.ticket-info .ticket-heading {
+  text-align: center;
+}
+
+.ticket-heading h1 {
+  color: #FFF;
+  font-family: "Road Rage", sans-serif;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.ticket-heading p {
+  color: #FFF;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  margin-top: 4px;
+}
+
+.ticket-img {
+  margin: 12px auto;
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  border: 4px solid rgba(36, 160, 181, 0.50);
+}
+
+.ticket-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ticket-data {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #133D44;
+  background: #08343C;
+  padding: 4px;
+}
+
+.row-data {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #12464E;
+  width: 100%;
+}
+
+.row-data .data {
+  padding: 4px;
+}
+
+.row-data .item-1 {
+  width: 45%;
+}
+
+.row-data .item-2 {
+  border-left: 1px solid #12464E;
+  padding-left: 8px;
+  width: 55%;
+}
+
+.data p, .bottom-data p {
+  color: #FFF;
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; 
+  opacity: 0.33;
+}
+
+.data h4, .bottom-data h4 {
+  color: #FFF;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  margin-top: 4px;
+}
+
+.bottom-data {
+  padding: 8px;
 }
 
 /* Media Queries */

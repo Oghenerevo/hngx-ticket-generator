@@ -31,16 +31,16 @@ const Ticket = () => {
 	}, [formData]);
 
 	const handleImageUpload = (event) => {
-			const file = event.target.files[0];
-			if (file) {
-					const imageUrl = URL.createObjectURL(file);
-					setImage(imageUrl);
-					setErrors((prev) => ({ ...prev, image: "" }));
-			}
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const imageUrl = URL.createObjectURL(file);
+  setImage(imageUrl);
+  setErrors((prev) => ({ ...prev, image: "" }));
 	};
 
-	const handleTicketClick = (ticketType) => {
-		setFormData((prev) => ({ ...prev, selectedTicket: ticketType }));
+	const handleTicketClick = (ticketStatus) => {
+		setFormData((prev) => ({ ...prev, selectedTicket: ticketStatus }));
 		setErrors((prev) => ({ ...prev, ticket: "" }));
 	};
 
@@ -71,20 +71,6 @@ const Ticket = () => {
 								? "Please enter a valid email address."
 								: "",
 		}));
-	};
-
-	const handleDragOver = (event) => {
-			event.preventDefault();
-	};
-
-	const handleDrop = (event) => {
-			event.preventDefault();
-			const file = event.dataTransfer.files[0];
-			if (file) {
-					const imageUrl = URL.createObjectURL(file);
-					setImage(imageUrl);
-					setErrors((prev) => ({ ...prev, image: "" }));
-			}
 	};
 
 	const handleNext = () => {
@@ -186,17 +172,17 @@ const Ticket = () => {
 								<p>Select Ticket Type: </p>
 								<div className="ticket-types">
 									{[
-										{ type: 'Free', description: 'Regular access', available: '20/52' },
-										{ type: '$50', description: 'VIP access', available: '20/52' },
-										{ type: '$150', description: 'VVIP access', available: '20/52' }
+										{ type: 'Free', description: 'Regular access', available: '20/52', status: 'Regular' },
+										{ type: '$50', description: 'VIP access', available: '20/52', status: 'VIP' },
+										{ type: '$150', description: 'VVIP access', available: '20/52', status: 'VVIP' }
 									].map((ticket, index) => (
 										<div 
 											key={index} 
-											onClick={() => handleTicketClick(ticket.type)}
+											onClick={() => handleTicketClick(ticket.status)}
 											className={`ticket ${
-												formData.selectedTicket === ticket.type ? "selected" : ""
+												formData.selectedTicket === ticket.status ? "selected" : ""
 											}`}
-											style={formData.selectedTicket === ticket.type ? { border: "1px solid #197686", background: "#12464E" } : {}}
+											style={formData.selectedTicket === ticket.status ? { border: "1px solid #197686", background: "#12464E" } : {}}
 										>
 											<h2>{ticket.type}</h2>
 											<h4>{ticket.description}</h4>
@@ -251,34 +237,18 @@ const Ticket = () => {
 						<div className="inner-wrapper">
 							<div className="image-container">
 								<p>Upload profile photo</p>
-								<div className="darker" onDragOver={handleDragOver} onDrop={handleDrop}>
-										<div 
-											className="image-holder"
-											onClick={() => document.getElementById('file-upload').click()} 
-											style={{ position: 'relative', cursor: 'pointer' }}
-										>
+								<div className="darker">
+										<label htmlFor="file-upload" className="image-holder" style={{ cursor: "pointer" }}>
 												{image ? (
 														<img src={image} alt="Uploaded" className="uploaded-image" style={imageStyle} />
 												) : (
 														<div className="content">
-																<label htmlFor="file-upload" className="upload-label">
-																		<img 
-																			src={imgUpload} 
-																			alt="Upload icon" 
-																			className="upload-icon" 
-																		/>
-																		<p>Drag & drop or click to upload</p>
-																</label>
-																<input
-																		id="file-upload"
-																		type="file"
-																		accept="image/*"
-																		onChange={handleImageUpload}
-																		style={{ display: "none" }}
-																/>
+																<img src={imgUpload} alt="Upload icon" className="upload-icon" />
+																<p>Drag & drop or click to upload</p>
 														</div>
 												)}
-										</div>
+										</label>
+										<input id="file-upload" type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} />
 								</div>
     			</div>
 							{errors.image && <p style={{ color: "red" }} className="error-text">{errors.image}</p>}
@@ -346,13 +316,48 @@ const Ticket = () => {
 
 							<div className="ticket-container">
 								<img src={ticketBg} alt="ticket-bg" className="ticket-bg" />
+								{/* <div className="ticket-info">
+									<p><strong>Special Request:</strong> {formData.request ? formData.request : 'Nil'}</p>
+								</div> */}
 								<div className="ticket-info">
-									<p><strong>Ticket Type:</strong> {formData.selectedTicket}</p>
-									<p><strong>Number of Tickets:</strong> {formData.selectedNumber}</p>
-									<p><strong>Name:</strong> {formData.name}</p>
-									<p><strong>Email:</strong> {formData.email}</p>
-									<p><strong>Special Request:</strong> {formData.request}</p>
-									{/* {imageUrl && <img src={imageUrl} alt="Uploaded" className="uploaded-image" />} */}
+									<div className="ticket-heading">
+										<h1>Techember Fest ”25</h1>
+										<p>📍 04 Rumens road, Ikoyi, Lagos</p>
+										<p>📅 March 15, 2025 | 7:00 PM</p>
+									</div>
+
+									<div className="ticket-img">
+										<img src="" alt="" />
+									</div>
+
+									<div className="ticket-data">
+										<div className="top-data">
+											<div className="row-data">
+												<div className="data item-1">
+													<p>Enter your name</p>
+													<h4>{formData.name}</h4>
+												</div>
+												<div className="data item-2">
+													<p>Enter your email*</p>
+													<h4>{formData.email}</h4>
+												</div>
+											</div>
+											<div className="row-data">
+												<div className="data item-1">
+													<p>Ticket Type:</p>
+													<h4>{formData.selectedTicket}</h4>
+												</div>
+												<div className="data item-2">
+													<p>Ticket For:</p>
+													<h4>{formData.selectedNumber}</h4>
+												</div>
+											</div>
+										</div>
+										<div className="bottom-data">
+											<p>Specail request?</p>
+											<h4>{formData.request ? formData.request : 'No special request'}</h4>
+										</div>
+									</div>
 								</div>
 								<img src={barCode} alt="bar-code" className='ticket-barcode'/>
 							</div>

@@ -574,6 +574,12 @@ textarea {
 }
 
 /* Media Queries */
+@media screen and (max-width: 1024px) {
+  .ticket-item h4 {
+    font-size: 13px;
+  }
+}
+
 @media screen and (max-width: 900px) {
   header {
     width: 90%;
@@ -592,6 +598,10 @@ textarea {
 
   .ticket-types {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .ticket-item h4 {
+    font-size: 16px;
   }
 }
 

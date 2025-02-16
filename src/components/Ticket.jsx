@@ -332,7 +332,9 @@ const Ticket = () => {
 									disabled={isUploading} 
 									className="btn next"
 								>
-									{isUploading ? "Uploading..." : "Get My Free Ticket"}
+									{isUploading ? "Uploading..." 
+										: formData.selectedTicket === "Regular" 
+											? "Get Your Free Ticket" : "Get Your Ticket"}
 								</button>
 							</div>
 						</div>

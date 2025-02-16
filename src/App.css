@@ -658,7 +658,7 @@ textarea {
 
 @media screen and (max-width: 520px) {
   .step-3 {
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 16px;
   }
 
@@ -675,7 +675,7 @@ textarea {
   }
 
   .btns {
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 16px;
   }
 
